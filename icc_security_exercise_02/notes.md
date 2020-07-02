@@ -27,6 +27,7 @@ sudo grep -E "10.10.1.60|intern01" /var/log/messages
 /var/run/utmp
 /var/log/wtmp
 /var/log/btmp
+/var/log/lastlog
 ```
 
 ## Q3
@@ -35,8 +36,8 @@ sudo grep -E "10.10.1.60|intern01" /var/log/messages
 sudo last -f /var/run/utmp
 sudo last -f /var/log/wtmp
 sudo last -f /var/log/btmp
-sudo grep -E "10.10.1.60|intern01" /var/log/secure
-sudo grep -E "10.10.1.60|intern01" /var/log/messages
+sudo cat /var/log/secure
+sudo cat /var/log/messages
 ```
 
 ![](images/2020-07-01-11-16-31.png)
@@ -134,6 +135,7 @@ List both the benefits and drawbacks of having the target listen for an incoming
 ```
 Benefits:
 - Attacker can choose when to initiate connection to the implant, and not have to wait for the implant to made a callback.
+- Don't need to re-exploit target machine to put implant back on.
 
 Drawbacks:
 - Inbound network traffic is often more highly scrutinised compared to outbound traffic, so the connection initiation is more likely to be blocked compared to a callback implant.
@@ -146,9 +148,11 @@ List both the benefits and drawbacks of triggering an implant to initiate a call
 ```
 Benefits:
 - Less likely that the callback connection to attacker C2 infrastructure will be blocked - as outbound network traffic is often less stringently controlled compared to inbound traffic.
+- Can use selection of destination port for callback to blend in with legitimate traffic expected to be leaving network (e.g. HTTPS on TCP port 443).
 
 Drawbacks:
 - Attacker needs to wait for implant to make callback if implant installation not directly triggered by attacker.
+- Use of ephemeral ports for destination port of callback may appear suspicious and may be stopped by security devices in compromised network.
 ```
 
 ## Q16
@@ -158,6 +162,7 @@ List both the benefits and drawbacks of having a non-persistent implant.
 ```
 Benefits:
 - Non-persistent implants running only in memory are more difficult for network defenders to detect due to the lack of a presence on disk.
+- Bypasses application white-listing since it is not running as its own executable (instead it is injected into an existing process on the compromised machine).
 
 Drawbacks:
 - Attacker access to computer via implant is lost if host process is terminated or computer is rebooted.
@@ -209,17 +214,16 @@ ssh intern01@10.10.1.40 -L 41000:10.10.1.10:445 -R 42000:127.0.0.1:42000
             10.10.1.60              10.10.1.40              10.10.1.10
             +--------------+        +--------------+        +--------------+
             |              |        |              |        |              |
-            |       [ephm] ---------> 22           |        |              |
+            |       [ephm] >--------> 22           |        |              |
             |              |        |              |        |              |
-Fwd tunnel  |        41000 =========================--------> 445          |
+Fwd tunnel  |        41000 >========================--------> 445          |
             |              |        |              |        |              |
-Rev tunnel  |        42000 <============= 42000 == <        |              |
+Rev tunnel  |        42000 <=============== 42000 =<        |              |
             |              |        |              |        |              |
             |              |        |              |        |              |
             |              |        |              |        |              |
             +--------------+        +--------------+        +--------------+
 ```
-
 
 ## Q21
 
@@ -233,7 +237,7 @@ CentOS (10.10.1.40):
 - `sudo iptables -F`
 
 Win2012 Server:
-- Disable Windows firewall
+- Try with disabling Windows firewall - however, may not be needed.
 
 ![](images/2020-07-01-13-36-49.png)
 
