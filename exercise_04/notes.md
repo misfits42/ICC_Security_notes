@@ -48,12 +48,7 @@ HKCU\Software\Microsoft\Windows\Currentversion\RunOnce
 
 What is the date and time on the target?
 
-```
-Sun 07/05/2020
-09:07 PM
-```
-
-![](images/2020-07-06-11-08-39.png)
+![](images/2020-07-06-14-13-13.png)
 
 ## Q3
 
@@ -198,5 +193,23 @@ True
 ---
 
 ![](images/2020-07-06-11-38-47.png)
+
+---
+
+## Q19
+
+The actions of this operation were logged by the security product.
+
+```
+False
+```
+
+![](images/2020-07-06-12-47-41.png)
+
+---
+
+![](images/2020-07-06-12-37-16.png)
+
+![](images/2020-07-06-12-42-21.png)
 
 ---
