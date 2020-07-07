@@ -213,7 +213,21 @@ Examine the process list and identify any malicious processes. Conduct internet 
 
 ![](images/2020-07-07-16-05-23.png)
 
-+++ TBC +++
+Look in the registry hive for user "ex6user".
+
+![](images/2020-07-08-08-49-57.png)
+
+VirusTotal indicates the "1.exe" file is malicious.
+
+![](images/2020-07-08-08-53-42.png)
+
+Download the 1.exe file to our Kali box for further analysis.
+
+![](images/2020-07-08-09-03-30.png)
+
+Interesting strings contained in the "1.exe" file:
+
+![](images/2020-07-08-09-04-17.png)
 
 ## Q15
 
@@ -287,7 +301,8 @@ Standard and non-standard system processes were all found to be legitimate files
 
 ## Q18
 
-+++
+- Looks like a manual-start powershell backdoor installed as service called "ZXPjuVdH"
+![](images/2020-07-08-08-38-05.png)
 
 ## Q19
 
