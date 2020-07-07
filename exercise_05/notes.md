@@ -191,6 +191,10 @@ Windows 10 (Build 15063)
 
 ## Q24
 
+`run multicommand -cl "systeminfo"`
+
+Memory space extract below:
+
 ![](images/2020-07-07-09-41-14.png)
 
 ## Q25
@@ -202,6 +206,8 @@ Windows 10 (Build 15063)
 ![](images/2020-07-07-09-41-47.png)
 
 ## Q27
+
+List running processes (from meterpreter session): `ps`
 
 - Security product processes
   - 3336 - SecurityHealthService.exe
@@ -217,7 +223,7 @@ Windows 10 (Build 15063)
 - Is the target running DHCP?
   - Yes
     - ("DHCP Enabled" set to "yes" in network card entry in output of "systeminfo" command).
-- How many interfaces are on the target?
+- How many interfaces are on the target? (running: `ipconfig`)
   - 1 physical network interface
     - Connection name: Ethernet
     - DHCP enabled: Yes
@@ -227,6 +233,7 @@ Windows 10 (Build 15063)
       - IPv6: fe80::d970:b361:da84:3075
   - 1 software loopback interface
     - IP address: 127.0.0.1
+  - 1 tunnel interface
 - What type of network adapter(s) does the target have?
   - Ethernet
 - How many routes does the target have (meaning how many routes are there for this box to connect to)?
