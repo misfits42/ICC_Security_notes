@@ -80,7 +80,7 @@ Note: Put the services in the order they appear, and only once for each service.
 2. named
 3. ntpd
 4. dhcpd
-5. named
+5. crond
 6. ntop
 
 ## Q7
@@ -232,3 +232,44 @@ Windows 10 (Build 15063)
 - How many routes does the target have (meaning how many routes are there for this box to connect to)?
   - 2 (via physical interface and software loopback interface)
 
+## Q30
+
+Document any files that have updated since the target was exploited.
+
+- Using following command in meterperter session:
+  - `run multicommand -cl 'powershell -noprofile -command "$now = Get-Date; gci -path ""C:\"" -recurse -erroraction silentlycontinue | ? {$_.LastWriteTime -gt $now.addminutes(-45)}"'`
+
+## Q32
+
+Commands used:
+
+```
+run multicommand -cl "cmd /c wevtutil qe security /count:20 /rd:true /format:text"
+run multicommand -cl "cmd /c wevtutil qe application /count:20 /rd:true /format:text"
+run multicommand -cl "cmd /c wevtutil qe system /count:20 /rd:true /format:text"
+```
+
+## Q34
+
+![](images/2020-07-07-10-42-47.png)
+
+- What processes or PIDs are indicative of a malware being present?
+  - None - task not running yet.
+- Where are the files located?
+  - "C:\Program Files\Common Files\VMWare"
+- What ports are associated with the malware?
+  - Malware not running - cannot determine what ports it listens on.
+- What is the name associated with the malware?
+  - +++
+- Do the filename and process ID match?
+  - +++
+- Were there any suspicious drivers present?
+  - +++
+- Document the malware's capabilities.
+  - +++
+- Will the scheduled event(s) interfere with the mission?
+  - +++
+- Will the scheduled event(s) backup any tools uploaded?
+  - +++
+- Make recommendation on if the operation should continue.
+  - +++
