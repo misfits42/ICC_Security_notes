@@ -115,15 +115,30 @@ iccex.com
 
 ![](images/2020-07-08-11-34-27.png)
 
+[-] could not locate the "dmurph" domain account.
+
+- List domain users:
+  - `run multicommand -cl "net user /domain"`
+- List properties of "intern01" user:
+  - `run multicommand -cl "net user intern01"`
+- List properties of domain account "dmurph" (if it was actually present):
+  - `run multicommand -cl "net user dmurph /domain"`
+
 ## Q23
 
 ![](images/2020-07-08-12-00-14.png)
+
+- Alternative methods:
+  - `run multicommand -cl "powershell -noprofile -command \"Get-Service\""`
+  - `run multicommand -cl "sc query type= service"`
 
 ## Q24
 
 ![](images/2020-07-08-12-02-06.png)
 
 ## Q25
+
+`run multicommand -cl 'powershell -noprofile -command "$now = Get-Date; gci -path ""C:\"" -recurse -erroraction silentlycontinue | ? {$).LastWriteTime -gt $now.AddMinutes(-45)}"`
 
 ![](images/2020-07-08-12-06-06.png)
 
@@ -164,6 +179,13 @@ run multicommand -cl "cmd /c schtasks"
 ## Q33
 
 ![](images/2020-07-08-13-35-14.png)
+
+```
+run post/windows/gather/forensics/enum_drives
+run multicommand -cl "fsutil fsinfo drives"
+run multicommand -cl "cmd /c chkdsk"
+run post/windows/gather_usb_history
+```
 
 ## Q34
 
